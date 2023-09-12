@@ -203,7 +203,8 @@ def run_client(opts)
 	# cache stay in sync with the actual state of the device.  As a result,
 	# we have to manually drop all caches before the data looks consistent.
 	# PERFORMANCE WIN!
-	File.open("/proc/sys/vm/drop_caches", 'w') { |fd| fd.print "3" }
+        system("sync; /sbin/sysctl vm.drop_caches=1 -q");
+
 
 	snapback = opts[:snapback] ? "--snapback #{opts[:snapback]}" : ''
 
